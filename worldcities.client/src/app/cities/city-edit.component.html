@@ -1,0 +1,80 @@
+<div class="city-edit">
+        <h1>{{title}}</h1>
+     <p *ngIf="id && !city"> <em>Loading...</em></p>  
+     
+     <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <p>
+            <mat-error *ngIf=" form.invalid && form.hasError('isDupeCity')">
+                    <strong> ERROR </strong>:
+                    A city with the same <i>name</i>, <i>lat</i>, <i>lon</i> and <i>country</i> already exists
+            </mat-error>
+        </p>
+
+        <mat-form-field>
+            <mat-label>Name:</mat-label>
+            <input matInput formControlName="name" required placeholder="Type a name">
+
+            <mat-error *ngIf=" form.controls['name'].errors?.['required']">
+                Name is Required
+            </mat-error>
+
+        </mat-form-field>
+
+        
+        <mat-form-field>
+            <mat-label>Latitude:</mat-label>
+            <input matInput formControlName="lat" required placeholder="Insert Latitude">
+
+            <mat-error *ngFor="let error of getErrors(form.get('lat')!,
+                        'Latitude',
+                        { 'pattern' : 'requires a positive or negative number with 0-4 decimal values' })">
+                        {{error}}
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Longtiude:</mat-label>
+            <input matInput formControlName="lon" required placeholder="Insert Longtiude">
+
+            <mat-error *ngFor="let error of getErrors(form.get('lon')!,
+                    'Longitude',
+                    { 'pattern' : 'requires a positive or negative number with 0-4 decimal values' })">
+                    {{error}}
+        </mat-error>
+
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Population:</mat-label>
+            <input matInput formControlName="pop" required placeholder="Insert Population">
+
+            <mat-error *ngIf=" form.controls['pop'].errors?.['required']">
+                Latitude is Required
+            </mat-error>
+
+        </mat-form-field>
+
+      
+
+        <mat-form-field *ngIf="countries">
+            <mat-label>Select a Country</mat-label>
+            <mat-select id="countryId" formControlName="countryId">
+                <mat-option *ngFor="let country of countries" [value]="country.id">
+                    {{country.name}}
+                </mat-option>
+            </mat-select>
+
+            <mat-error *ngIf=" form.controls['lat'].errors?.['required']">
+                Latitude is Required
+            </mat-error>
+
+        </mat-form-field>
+
+        <div>
+            <button mat-flat-button type="submit" color="primary" [disabled]="!form.valid">{{this.id ? "Save" : "Create"}}</button>
+            <button mat-flat-button [hidden]="!id" (click)="ondelete()" color="warn">Delete</button>
+            <button mat-stroked-button type="submit" color="secondary" [routerLink]="['/cities']">Cancel</button>
+        </div>
+
+    </form>
+</div>

@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "EFdXLQs61uCOXNGd+EpbqrS5GdC91zLHWemdGpnCgRU=",
+  "Source": "WorldCities.Server",
+  "BasePath": "_content/WorldCities.Server",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
